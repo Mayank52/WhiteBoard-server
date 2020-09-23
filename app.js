@@ -29,9 +29,9 @@ io.on("connection", (socket) => {
   });
 });
 
-// app.get("/" , function(req,res){
-//     res.end("<h1>Welcome to main Page</h1>")
-// })
+app.get("/" , function(req,res){
+    res.end("<h1>Welcome to main Page</h1>")
+})
 
 // server is live at localhost:5000
 let port = process.env.PORT || 3000;
