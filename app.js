@@ -1,10 +1,20 @@
+// inside server
+// npm init -y
+// npm install express
+// npm install socket.io
+
 const express = require("express");
+// server is created
 const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
 
 io.on("connection", (socket) => {
   console.log(`${socket.id} user connected`);
+  // socket.on("pencil" , function(data){
+  //     console.log(data);
+  // })
+
   socket.on("md", function (point) {
     socket.broadcast.emit("onmousedown", point);
   });
@@ -14,11 +24,19 @@ io.on("connection", (socket) => {
   });
 
   socket.on("redraw", (points) => {
-    console.log("redraw called");
     socket.broadcast.emit("redraw", points);
   });
 });
 
-http.listen(3000, function () {
-  console.log("Server started at port 3000 !");
+app.get("/", function (req, res) {
+  res.end("<h1>Welcome to main Page</h1>");
+});
+
+// server is live at localhost:3000
+// http.listen(3000, function () {
+//   console.log("Server started at port 3000 !");
+// });
+let port = process.env.PORT || 3000;
+http.listen(port, function () {
+  console.log("Server started!");
 });
